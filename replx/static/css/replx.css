@@ -1,0 +1,9 @@
+/* CSS for ReplXBlock */
+
+.replx_block .count {
+    font-weight: bold;
+}
+
+.replx_block p {
+    cursor: pointer;
+}
