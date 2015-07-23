@@ -35,6 +35,8 @@ class ReplXBlock(XBlock):
         html = self.resource_string("static/html/replx.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/replx.css"))
+        frag.add_javascript(self.resource_string("static/js/lib/skulpt.min.js"))
+        frag.add_javascript(self.resource_string("static/js/lib/skulpt-stdlib.js"))
         frag.add_javascript(self.resource_string("static/js/src/replx.js"))
         frag.initialize_js('ReplXBlock')
         return frag
