@@ -3,7 +3,7 @@
 import pkg_resources
 
 from xblock.core import XBlock
-from xblock.fields import Scope, Integer
+from xblock.fields import Scope, String
 from xblock.fragment import Fragment
 
 
@@ -12,13 +12,20 @@ class ReplXBlock(XBlock):
     TO-DO: document what your XBlock does.
     """
 
-    # Fields are defined on the class.  You can access them in your code as
-    # self.<fieldname>.
+    EDITOR_DEFAULT = """
+# You can edit your Python here.
 
-    # TO-DO: delete count, and define your own fields.
-    count = Integer(
-        default=0, scope=Scope.user_state,
-        help="A simple counter, to show something happening",
+def say_hello(name):
+    print "Hello, " + name + "!"
+
+say_hello("<your name here>")
+
+"""
+
+    editor_text = String(
+        default=EDITOR_DEFAULT,
+        scope=Scope.user_state,
+        help="Text within the code editor."
     )
 
     def resource_string(self, path):
@@ -35,24 +42,21 @@ class ReplXBlock(XBlock):
         html = self.resource_string("static/html/replx.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/replx.css"))
+        frag.add_css(self.resource_string("static/css/codemirror.css"))
         frag.add_javascript(self.resource_string("static/js/lib/skulpt.min.js"))
         frag.add_javascript(self.resource_string("static/js/lib/skulpt-stdlib.js"))
+        frag.add_javascript(self.resource_string("static/js/lib/codemirror.min.js"))
         frag.add_javascript(self.resource_string("static/js/src/replx.js"))
         frag.initialize_js('ReplXBlock')
         return frag
 
-    # TO-DO: change this handler to perform your own actions.  You may need more
-    # than one handler, or you may not need any handlers at all.
     @XBlock.json_handler
-    def increment_count(self, data, suffix=''):
+    def save_editor_text(self, data, suffix=''):  # pylint: disable=unused-argument
         """
-        An example handler, which increments the data.
+        Save the text in the code editor.
         """
-        # Just to show data coming in...
-        assert data['hello'] == 'world'
-
-        self.count += 1
-        return {"count": self.count}
+        self.editor_text = data["editorText"]
+        return {}  # TODO: is this necessary?
 
     # TO-DO: change this to create the scenarios you'd like to see in the
     # workbench while developing your XBlock.
@@ -61,10 +65,6 @@ class ReplXBlock(XBlock):
         """A canned scenario for display in the workbench."""
         return [
             ("ReplXBlock",
-             """<vertical_demo>
-                <replx/>
-                <replx/>
-                <replx/>
-                </vertical_demo>
+             """<replx />
              """),
         ]
