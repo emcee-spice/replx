@@ -5,13 +5,13 @@ function ReplXBlock(runtime, element) {
         $('.count', element).text(result.count);
     }
 
-    var handlerUrl = runtime.handlerUrl(element, 'increment_count');
+    pypyjs.rootUrl = runtime.handlerUrl(element, 'get_file') + 'file=';
 
     $('p', element).click(function(eventObject) {
         $.ajax({
-            type: "POST",
-            url: handlerUrl,
-            data: JSON.stringify({"hello": "world"}),
+            type: "GET",
+            url: window.getFileUrl,
+            data: {"file": "modules/index.json"},
             success: updateCount
         });
     });

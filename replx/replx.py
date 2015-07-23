@@ -6,6 +6,8 @@ from xblock.core import XBlock
 from xblock.fields import Scope, Integer
 from xblock.fragment import Fragment
 
+from webob import Response
+
 
 class ReplXBlock(XBlock):
     """
@@ -54,6 +56,11 @@ class ReplXBlock(XBlock):
 
         self.count += 1
         return {"count": self.count}
+
+    @XBlock.handler
+    def get_file(self, request, suffix=''):
+        content = self.resource_string('static/js/lib/' + request.GET['file'])
+        return Response(content, content_type='text/plain')
 
     # TO-DO: change this to create the scenarios you'd like to see in the
     # workbench while developing your XBlock.
