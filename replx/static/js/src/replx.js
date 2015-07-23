@@ -11,7 +11,6 @@ function ReplXBlock(runtime, element) {
         var editor = CodeMirror.fromTextArea(editorTextArea);
         editor.lineNumbers = true;
         editor.mode = "python";
-
         var textChanged = false;
 
         function saveEditorText(async) {

@@ -1,1 +1,14 @@
-/* CSS for ReplXBlock */
+
+#editor-text-area-wrapper {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    height: 600px;
+}
+
+#repl-wrapper {
+    display: inline-block;
+    float: right;
+    width: 50%;
+    height: 600px;
+}
