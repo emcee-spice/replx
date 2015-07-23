@@ -5,7 +5,7 @@ function ReplXBlock(runtime, element) {
         $('.count', element).text(result.count);
     }
 
-    pypyjs.rootUrl = runtime.handlerUrl(element, 'get_file') + 'file=';
+    pypyjs.rootURL = runtime.handlerUrl(element, 'get_file') + 'file=';
 
     $('p', element).click(function(eventObject) {
         $.ajax({
@@ -17,6 +17,8 @@ function ReplXBlock(runtime, element) {
     });
 
     $(function ($) {
-        /* Here's where you'd do things on page load. */
+        pypyjs.ready().then(function () {
+            console.log('pypyjs loaded');
+        });
     });
 }

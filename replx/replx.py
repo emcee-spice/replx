@@ -28,6 +28,10 @@ class ReplXBlock(XBlock):
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
 
+    def resource(self, path):
+        data = pkg_resources.resource_string(__name__, path)
+        return data
+
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
         """
@@ -59,7 +63,7 @@ class ReplXBlock(XBlock):
 
     @XBlock.handler
     def get_file(self, request, suffix=''):
-        content = self.resource_string('static/js/lib/' + request.GET['file'])
+        content = self.resource('static/js/lib/' + request.GET['file'])
         return Response(content, content_type='text/plain')
 
     # TO-DO: change this to create the scenarios you'd like to see in the
