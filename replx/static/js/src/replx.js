@@ -5,20 +5,18 @@ function ReplXBlock(runtime, element) {
         $('.count', element).text(result.count);
     }
 
-    pypyjs.rootURL = runtime.handlerUrl(element, 'get_file') + 'file=';
+    var handlerUrl = runtime.handlerUrl(element, 'increment_count');
 
     $('p', element).click(function(eventObject) {
         $.ajax({
-            type: "GET",
-            url: window.getFileUrl,
-            data: {"file": "modules/index.json"},
+            type: "POST",
+            url: handlerUrl,
+            data: JSON.stringify({"hello": "world"}),
             success: updateCount
         });
     });
 
     $(function ($) {
-        pypyjs.ready().then(function () {
-            console.log('pypyjs loaded');
-        });
+        /* Here's where you'd do things on page load. */
     });
 }

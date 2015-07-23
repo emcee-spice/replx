@@ -6,8 +6,6 @@ from xblock.core import XBlock
 from xblock.fields import Scope, Integer
 from xblock.fragment import Fragment
 
-from webob import Response
-
 
 class ReplXBlock(XBlock):
     """
@@ -28,10 +26,6 @@ class ReplXBlock(XBlock):
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
 
-    def resource(self, path):
-        data = pkg_resources.resource_string(__name__, path)
-        return data
-
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
         """
@@ -41,9 +35,6 @@ class ReplXBlock(XBlock):
         html = self.resource_string("static/html/replx.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(self.resource_string("static/css/replx.css"))
-        frag.add_javascript(self.resource_string("static/js/lib/Promise.min.js"))
-        frag.add_javascript(self.resource_string("static/js/lib/FunctionPromise.js"))
-        frag.add_javascript(self.resource_string("static/js/lib/pypyjs.js"))
         frag.add_javascript(self.resource_string("static/js/src/replx.js"))
         frag.initialize_js('ReplXBlock')
         return frag
@@ -61,11 +52,6 @@ class ReplXBlock(XBlock):
         self.count += 1
         return {"count": self.count}
 
-    @XBlock.handler
-    def get_file(self, request, suffix=''):
-        content = self.resource('static/js/lib/' + request.GET['file'])
-        return Response(content, content_type='text/plain')
-
     # TO-DO: change this to create the scenarios you'd like to see in the
     # workbench while developing your XBlock.
     @staticmethod
@@ -73,5 +59,10 @@ class ReplXBlock(XBlock):
         """A canned scenario for display in the workbench."""
         return [
             ("ReplXBlock",
-             """<replx/>"""),
+             """<vertical_demo>
+                <replx/>
+                <replx/>
+                <replx/>
+                </vertical_demo>
+             """),
         ]
