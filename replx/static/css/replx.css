@@ -1,14 +1,21 @@
 
-#editor-text-area-wrapper {
-    display: inline-block;
-    float: left;
-    width: 50%;
-    height: 600px;
+#editor-repl-wrapper:after {
+   content: " ";
+   display: block;
+   height: 0;
+   clear: both;
 }
 
-#repl-wrapper {
+
+#editor-wrapper, #repl-wrapper {
     display: inline-block;
-    float: right;
-    width: 50%;
+    float: left;
+    width: 49%;
     height: 600px;
+    margin-right: 1%;
+}
+
+.CodeMirror {
+    width: 100%;
+    height: 100%;
 }

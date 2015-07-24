@@ -108,9 +108,9 @@ say_hello("<your name here>")
         frag.add_css(self._get_theme_css(self._theme_name))
 
         # Static assets
-        frag.add_css(self.resource_string("static/css/replx.css"))
         frag.add_css(self.resource_string("static/css/codemirror.css"))
         frag.add_css(self.resource_string("static/css/codemirror-repl.css"))
+        frag.add_css(self.resource_string("static/css/replx.css"))
         frag.add_javascript(self.resource_string("static/js/lib/codemirror/codemirror_python.min.js"))
         frag.add_javascript(self.resource_string("static/js/lib/codemirror/codemirror-repl.min.js"))
         frag.add_javascript(self.resource_string("static/js/lib/skulpt/skulpt.min.js"))

@@ -1,7 +1,7 @@
 
 function createPythonREPL(themeName) {
 
-    var repl = new CodeMirrorREPL('repl', {
+    var repl = new CodeMirrorREPL('repl-text-area', {
         mode: "python",
         theme: themeName
     }),
