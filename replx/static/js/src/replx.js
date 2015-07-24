@@ -8,6 +8,7 @@ function ReplXBlock(runtime, element) {
 
     // State
     var textChanged = false;
+    var loadedThemes = [];
 
     // Utility functions
 
@@ -64,16 +65,26 @@ function ReplXBlock(runtime, element) {
 
         // Theme selection
         themeSelector.value = params["themeName"];
+        loadedThemes.push(params["themeName"]);
         $("#theme-selector").change(function () {
             var themeName = themeSelector.value;
-            postAJAX('change_theme', { "themeName": themeName }, true, function (data) {
-                var style = document.createElement('style');
-                style.type = 'text/css';
-                style.innerHTML = data['themeCSS'];
-                $('head')[0].appendChild(style);
-                editor.setOption('theme', themeName);
-                repl.setTheme(themeName);
-            });
+            var themeIsLoaded = loadedThemes.indexOf(themeName) >= 0;
+            postAJAX(
+                'change_theme',
+                { "themeName": themeName, "getCSS": !themeIsLoaded },
+                true,
+                function (data) {
+                    if (!themeIsLoaded) {
+                        var style = document.createElement('style');
+                        style.type = 'text/css';
+                        style.innerHTML = data['themeCSS'];
+                        $('head')[0].appendChild(style);
+                        loadedThemes.push(themeName);
+                    }
+                    editor.setOption('theme', themeName);
+                    repl.setTheme(themeName);
+                }
+            );
         })
     });
 }
