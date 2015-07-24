@@ -1,5 +1,5 @@
 
-function createPythonREPL(themeName) {
+function createPythonREPL(themeName, canvasID) {
 
     var repl = new CodeMirrorREPL('repl-text-area', {
         mode: "python",
@@ -22,9 +22,7 @@ function createPythonREPL(themeName) {
     //it also checks if the identifier is a tuple.
     assignment = /^((\s*\(\s*(\s*((\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*)|(\s*\(\s*(\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*,)*\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*\)\s*))\s*,)*\s*((\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*)|(\s*\(\s*(\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*,)*\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*\)\s*))\s*\)\s*)|(\s*\s*(\s*((\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*)|(\s*\(\s*(\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*,)*\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*\)\s*))\s*,)*\s*((\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*)|(\s*\(\s*(\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*,)*\s*((\s*[_a-zA-Z]\w*\s*)|(\s*\(\s*(\s*[_a-zA-Z]\w*\s*,)*\s*[_a-zA-Z]\w*\s*\)\s*))\s*\)\s*))\s*\s*))=/;
 
-    repl.print("Python 2.6(ish) (skulpt, " + new Date() + ")");
-    repl.print("[" + navigator.userAgent + "] on " + navigator.platform);
-    repl.print('Don\'t type "help", "copyright", "credits" or "license" unless you\'ve assigned something to them');
+    repl.print("# Python 2.6(ish) (skulpt, " + new Date() + ")");
 
     repl.isBalanced = function (code) {
         var lines = code.split('\n'),
@@ -47,8 +45,11 @@ function createPythonREPL(themeName) {
     };
 
     //Loop
-    repl.eval = function (code) {
-        Sk.configure({ 
+    repl.eval = function (code, successCallback, failureCallback) {
+        if (code.indexOf('turtle') > 0) {
+            $('#' + canvasID).show();
+        }
+        Sk.configure({
             output: function(str) {
                 //strip out line-feeds
                 if (str.replace(/\n/g, "") !== "") {
@@ -91,7 +92,9 @@ function createPythonREPL(themeName) {
                 Sk.importMainWithBody("repl", false, lines.join('\n'), true);
             });
             evalPromise.then(
-                function (mod) {},
+                function (mod) {
+                    successCallback()
+                },
                 function (err) {
                     repl.print(err);
 
@@ -105,10 +108,10 @@ function createPythonREPL(themeName) {
                     lines.forEach(function (str) {
                         repl.print(++line + (index === line ? ">" : " ") + ": " + str);
                     });
+                    failureCallback()
                 }
             );
         }
-        return true;
     };
 
     return repl;

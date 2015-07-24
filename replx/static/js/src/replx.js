@@ -5,6 +5,7 @@ function ReplXBlock(runtime, element) {
     var themeSelector = $('#theme-selector')[0];
     var editorTextArea = $('#editor-text-area')[0];
     var editor = null;
+    var canvasDiv = $('#output-canvas')[0];
 
     // State
     var textChanged = false;
@@ -49,7 +50,7 @@ function ReplXBlock(runtime, element) {
         window._e = editor; // TODO: remove this
 
         // Set up REPL
-        var repl = createPythonREPL(params["themeName"]);
+        var repl = createPythonREPL(params["themeName"], "output-canvas");
         window._r = repl; // TODO: remove this
 
 
@@ -60,7 +61,7 @@ function ReplXBlock(runtime, element) {
 
 
         // Handle text changing & saving
-        setTimeout(function () {
+        setInterval(function () {
             if (textChanged) {
                 saveEditorText(true);
                 textChanged = false;
@@ -98,21 +99,28 @@ function ReplXBlock(runtime, element) {
 
         // Control buttons
         $("#run-button").click(function () {
-            repl.print('Loading your code...');
-            // This is wrapped in 1ms setTimeout so that the Loading message
-            // is printed before running the code.
-            setTimeout(function () {
-                repl.eval(params["prerun_code"]);
-                if (repl.eval(editor.getValue())) {
-                    repl.print('Done.');
+            repl.print('# Loading your code...');
+            repl.eval(params["prerun_code"]);
+            repl.eval(
+                editor.getValue(),
+                function () {
+                    repl.print('# Code loaded successfully.');
+                },
+                function () {
+                    repl.print('# Failed to load code.');
                 }
-            }, 1);
-        });
-        $("#share-button").click(function () {
-            alert('Not yet implemented.');
+            );
         });
         $("#submit-button").click(function () {
             alert('Not yet implemented.');
+        });
+        $("#toggle-canvas-button").click(function () {
+            if (canvasDiv.style.display == 'none') {
+                canvasDiv.style.display = 'block';
+            } else {
+                canvasDiv.style.display = 'none';
+            }
+            console.log(canvasDiv);
         });
     });
 }

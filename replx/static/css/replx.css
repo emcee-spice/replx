@@ -29,6 +29,11 @@
 }
 
 #output-canvas {
-    width: 100%;
+    margin-top: 1%;
+    width: 98.5%;
     height: 400px;
+    display: none;
+    border: 3px solid #aaa;
+    border-radius: 10px;
+    background: #ddd;
 }
