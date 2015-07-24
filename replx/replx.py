@@ -122,6 +122,10 @@ say_hello("<your name here>")
         frag.initialize_js('ReplXBlock')
         return frag
 
+    def studio_view(self, context=None):
+        frag = Fragment("Hello World!")
+        return frag
+
     @XBlock.json_handler
     def save_editor_text(self, data, suffix=''):  # pylint: disable=unused-argument
         """
