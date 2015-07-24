@@ -48,6 +48,10 @@ function ReplXBlock(runtime, element) {
         });
         window._e = editor; // TODO: remove this
 
+        // Set up REPL
+        var repl = createPythonREPL(params["themeName"], "output-canvas");
+        window._r = repl; // TODO: remove this
+
         // Handle text changing & saving
         setTimeout(function () {
             if (textChanged) {
@@ -60,10 +64,6 @@ function ReplXBlock(runtime, element) {
             saveEditorText(false);
             return null;
         };
-
-        // Set up REPL
-        var repl = createPythonREPL(params["themeName"]);
-        window._r = repl; // TODO: remove this
 
         // Theme selection
         themeSelector.value = params["themeName"];
@@ -89,8 +89,8 @@ function ReplXBlock(runtime, element) {
             );
         });
 
-        // Running code from editor
-        $("#run").click(function () {
+        // Control buttons
+        $("#run-button").click(function () {
             repl.print('Loading your code...');
             // This is wrapped in 1ms setTimeout so that the Loading message
             // is printed before running the code.
@@ -99,6 +99,12 @@ function ReplXBlock(runtime, element) {
                     repl.print('Done.');
                 }
             }, 1);
+        });
+        $("#share-button").click(function () {
+            alert('Not yet implemented.');
+        });
+        $("#submit-button").click(function () {
+            alert('Not yet implemented.');
         });
     });
 }
