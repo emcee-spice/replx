@@ -102,6 +102,7 @@ function ReplXBlock(runtime, element) {
             // This is wrapped in 1ms setTimeout so that the Loading message
             // is printed before running the code.
             setTimeout(function () {
+                repl.eval(params["prerun_code"]);
                 if (repl.eval(editor.getValue())) {
                     repl.print('Done.');
                 }

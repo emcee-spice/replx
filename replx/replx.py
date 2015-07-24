@@ -106,7 +106,8 @@ class ReplXBlock(XBlock):
 
         # Parameters
         self._params = {
-            'themeName': self._theme_name
+            'themeName': self._theme_name,
+            'prerun_code': self.prerun_code
         }
         self._params_json = json.dumps(self._params)
 
