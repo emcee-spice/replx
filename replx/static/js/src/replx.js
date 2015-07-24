@@ -100,16 +100,18 @@ function ReplXBlock(runtime, element) {
         // Control buttons
         $("#run-button").click(function () {
             repl.print('# Loading your code...');
-            repl.eval(params["prerun_code"]);
-            repl.eval(
-                editor.getValue(),
-                function () {
-                    repl.print('# Code loaded successfully.');
-                },
-                function () {
-                    repl.print('# Failed to load code.');
-                }
-            );
+            repl.eval(params["prerun_code"], function () {
+                repl.eval(
+                    editor.getValue(),
+                    function () {
+                        repl.print('# Code loaded successfully.');
+                        repl.eval(params["postrun_code"]);
+                    },
+                    function () {
+                        repl.print('# Failed to load code.');
+                    }
+                );
+            }, function () { repl.print('# Failed to run instructor provided code.'); }
         });
         $("#submit-button").click(function () {
             alert('Not yet implemented.');
