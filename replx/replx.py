@@ -137,6 +137,8 @@ class ReplXBlock(XBlock):
     def studio_view(self, context=None):
         html_str = self.resource_string("static/html/studio.html")
         frag = Fragment(html_str.format(self=self))
+        frag.add_javascript(self.resource_string("static/js/src/replx-edit.js"))
+        frag.initialize_js("ReplXBlockEdit")
 
         return frag
 
@@ -177,6 +179,17 @@ class ReplXBlock(XBlock):
             }
         else:
             pass  # TODO: Handle errors.
+
+    @XBlock.json_handler
+    def studio_submit(self, data, suffix=''):
+        """
+        Called when submitting the form in Studio.
+        """
+        self.instructions = data.get('instructions')
+        self.initial_code = data.get('initial_code')
+        self.prerun_code = data.get('prerun_code')
+
+        return {'result': 'success'}
 
     # TO-DO: change this to create the scenarios you'd like to see in the
     # workbench while developing your XBlock.
