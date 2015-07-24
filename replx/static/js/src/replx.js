@@ -62,6 +62,7 @@ function ReplXBlock(runtime, element) {
 
         // Set up REPL
         var repl = createPythonREPL(params["themeName"]);
+        window._r = repl; // TODO: remove this
 
         // Theme selection
         themeSelector.value = params["themeName"];

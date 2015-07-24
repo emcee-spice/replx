@@ -109,12 +109,12 @@ say_hello("<your name here>")
 
         # Static assets
         frag.add_css(self.resource_string("static/css/codemirror.css"))
-        frag.add_css(self.resource_string("static/css/codemirror-repl.css"))
         frag.add_css(self.resource_string("static/css/replx.css"))
-        frag.add_javascript(self.resource_string("static/js/lib/codemirror/codemirror_python.min.js"))
-        frag.add_javascript(self.resource_string("static/js/lib/codemirror/codemirror-repl.min.js"))
         frag.add_javascript(self.resource_string("static/js/lib/skulpt/skulpt.min.js"))
-        frag.add_javascript(self.resource_string("static/js/lib/skulpt/skulpt-stdlib.js"))
+        frag.add_javascript(self.resource_string("static/js/lib/skulpt/skulpt-stdlib.min.js"))
+        frag.add_javascript(self.resource_string("static/js/lib/codemirror/codemirror.js"))
+        frag.add_javascript(self.resource_string("static/js/lib/codemirror/codemirror-repl.js"))
+        frag.add_javascript(self.resource_string("static/js/lib/codemirror/python-syntax-mode.js"))
         frag.add_javascript(self.resource_string("static/js/src/python-repl.js"))
         frag.add_javascript(self.resource_string("static/js/src/replx.js"))
 
