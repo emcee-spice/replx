@@ -123,7 +123,7 @@ say_hello("<your name here>")
         return frag
 
     def studio_view(self, context=None):
-        html_str = self.resource_string(__name__, "static/html/studio.html")
+        html_str = self.resource_string("static/html/studio.html")
         frag = Fragment(html_str)
 
         return frag
