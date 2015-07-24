@@ -71,6 +71,11 @@ say_hello("<your name here>")
         scope=Scope.user_state,
         help="Text within the code editor."
     )
+    test_setting = String(
+        default="foobar",
+        scope=Scope.settings,
+        help="A test setting"
+    )
     _theme_name = String(
         default='default',
         scope=Scope.preferences,
