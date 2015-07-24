@@ -106,6 +106,7 @@ function ReplXBlock(runtime, element) {
                 if (repl.eval(editor.getValue())) {
                     repl.print('Done.');
                 }
+                repl.eval(params["postrun_code"]);
             }, 1);
         });
         $("#share-button").click(function () {

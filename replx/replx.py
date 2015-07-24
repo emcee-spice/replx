@@ -68,6 +68,12 @@ class ReplXBlock(XBlock):
         help="Code to run before evaluating student code"
     )
 
+    postrun_code = String(
+        default="",
+        scope=Scope.settings,
+        help="Code to run after evaluating student code"
+    )
+
     instructions = String(
         default="Enter your code below",
         scope=Scope.settings,
@@ -107,7 +113,8 @@ class ReplXBlock(XBlock):
         # Parameters
         self._params = {
             'themeName': self._theme_name,
-            'prerun_code': self.prerun_code
+            'prerun_code': self.prerun_code,
+            'postrun_code': self.postrun_code
         }
         self._params_json = json.dumps(self._params)
 
@@ -189,6 +196,7 @@ class ReplXBlock(XBlock):
         self.instructions = data.get('instructions')
         self.initial_code = data.get('initialcode')
         self.prerun_code = data.get('preruncode')
+        self.postrun_code = data.get('postruncode')
 
         return {'result': 'success'}
 

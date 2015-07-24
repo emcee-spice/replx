@@ -4,7 +4,8 @@ function ReplXBlockEdit(runtime, element) {
     var data = {
       instructions: $(element).find('textarea[name=instructions]').val(),
       initialcode: $(element).find('textarea[name=initialcode]').val(),
-      preruncode: $(element).find('textarea[name=preruncode]').val()
+      preruncode: $(element).find('textarea[name=preruncode]').val(),
+      postruncode: $(element).find('textarea[name=postruncode]').val()
     };
     runtime.notify('save', {state: 'start'});
     $.post(handlerUrl, JSON.stringify(data)).done(function(response) {
