@@ -82,30 +82,33 @@ function createPythonREPL(themeName) {
             }
         }
 
-		try {
-            //Evaluate
-            if (!lines || /^\s*$/.test(lines)) {
-                return true;
-            }
-            else {
-                Sk.importMainWithBody("repl", false, lines.join('\n'));
-            }
+        //Evaluate
+        if (!lines || /^\s*$/.test(lines)) {
             return true;
-        } catch (err) {
-            repl.print(err);
-
-            //find the line number
-            if ((index = err.toString().indexOf("on line")) !== -1) {
-                index = parseInt(err.toString().substr(index + 8), 10);
-            }
-			
-            //print the accumulated code with a ">" before the broken line.
-            //Don't add the last statement to the accumulated code
-            lines.forEach(function (str) {
-                repl.print(++line + (index === line ? ">" : " ") + ": " + str);
-            });
-            return false;
         }
+        else {
+            var evalPromise = Sk.misceval.asyncToPromise(function() {
+                Sk.importMainWithBody("repl", false, lines.join('\n'), true);
+            });
+            evalPromise.then(
+                function (mod) {},
+                function (err) {
+                    repl.print(err);
+
+                    //find the line number
+                    if ((index = err.toString().indexOf("on line")) !== -1) {
+                        index = parseInt(err.toString().substr(index + 8), 10);
+                    }
+                    
+                    //print the accumulated code with a ">" before the broken line.
+                    //Don't add the last statement to the accumulated code
+                    lines.forEach(function (str) {
+                        repl.print(++line + (index === line ? ">" : " ") + ": " + str);
+                    });
+                }
+            );
+        }
+        return true;
     };
 
     return repl;
