@@ -27,3 +27,8 @@
 .note-gutter {
     width: 30px;
 }
+
+#output-canvas {
+    width: 100%;
+    height: 400px;
+}

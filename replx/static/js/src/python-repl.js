@@ -63,7 +63,7 @@ function createPythonREPL(themeName) {
             },
 			retainglobals: true
         });
-            
+
         //split lines on linefeed
         var lines = code.split('\n'), index = -1, line = 0;
 
@@ -88,7 +88,7 @@ function createPythonREPL(themeName) {
                 return true;
             }
             else {
-                Sk.importMainWithBody("repl", false, lines.join('\n'));            
+                Sk.importMainWithBody("repl", false, lines.join('\n'));
             }
             return true;
         } catch (err) {

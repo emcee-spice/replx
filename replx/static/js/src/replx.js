@@ -49,8 +49,15 @@ function ReplXBlock(runtime, element) {
         window._e = editor; // TODO: remove this
 
         // Set up REPL
-        var repl = createPythonREPL(params["themeName"], "output-canvas");
+        var repl = createPythonREPL(params["themeName"]);
         window._r = repl; // TODO: remove this
+
+
+        // Set up canvas
+        canvasID = "output-canvas";
+        Sk.canvas = canvasID;
+        (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvasID;
+
 
         // Handle text changing & saving
         setTimeout(function () {

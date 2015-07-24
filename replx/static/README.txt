@@ -15,5 +15,5 @@ Then you can get a url with code like this:
 The sample code includes a function you can use to read the content of files
 in the static directory, like this:
 
-    frag.add_javascript(self.resource_string("static/js/my_block.js"))
+    frag.add_javascript(self.resource_string("static/js/my_block.js"))w
 
