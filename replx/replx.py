@@ -186,8 +186,8 @@ class ReplXBlock(XBlock):
         Called when submitting the form in Studio.
         """
         self.instructions = data.get('instructions')
-        self.initial_code = data.get('initial_code')
-        self.prerun_code = data.get('prerun_code')
+        self.initial_code = data.get('initialcode')
+        self.prerun_code = data.get('preruncode')
 
         return {'result': 'success'}
 

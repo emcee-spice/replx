@@ -3,8 +3,8 @@ function ReplXBlockEdit(runtime, element) {
     var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
     var data = {
       instructions: $(element).find('input[name=instructions]').val(),
-      initial_code: $(element).find('input[name=initial_code]').val(),
-      prerun_code: $(element).find('input[name=prerun_code]').val()
+      initialcode: $(element).find('input[name=initialcode]').val(),
+      preruncode: $(element).find('input[name=preruncode]').val()
     };
     runtime.notify('save', {state: 'start'});
     $.post(handlerUrl, JSON.stringify(data)).done(function(response) {

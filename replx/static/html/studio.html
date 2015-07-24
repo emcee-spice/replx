@@ -3,21 +3,21 @@
     <li class="field comp-setting-entry is-set">
       <div class="wrapper-comp-setting">
         <label class="label setting-label" for="instructions">Instructions</label>
-        <input class="input setting-input" name="instructions" id="instructions" value="{self.instructions}" type="text" />
+        <textarea rows="10" cols="80" class="input setting-input" name="instructions" id="instructions">{self.instructions}</textarea>
       </div>
       <span class="tip setting-help">Tell the student what to do with the code editor</span>
     </li>
     <li class="field comp-setting-entry is-set">
       <div class="wrapper-comp-setting">
-        <label class="label setting-label" for="initial_code">Initial Code</label>
-        <textarea class="input setting-input" name="initial_code" id="initial_code">{self.initial_code}</textarea>
+        <label class="label setting-label" for="initialcode">Initial Code</label>
+        <textarea rows="10" cols="80" class="input setting-input" name="initialcode" id="initialcode">{self.initial_code}</textarea>
       </div>
       <span class="tip setting-help">Initial code when the block is first loaded</span>
     </li>
     <li class="field comp-setting-entry is-set">
       <div class="wrapper-comp-setting">
-        <label class="label setting-label" for="prerun_code">Prerun Code</label>
-        <textarea class="input setting-input" name="prerun_code" id="prerun_code">{self.prerun_code}</textarea>
+        <label class="label setting-label" for="preruncode">Prerun Code</label>
+        <textarea rows="10" cols="80" class="input setting-input" name="preruncode" id="preruncode">{self.prerun_code}</textarea>
       </div>
       <span class="tip setting-help">Code to run before evaluating student code</span>
     </li>
