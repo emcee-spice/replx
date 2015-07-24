@@ -1,4 +1,8 @@
 <div class="replx_block">
+    <div id="control-panel">
+        <button id="run">Run</button>
+        <select id="theme-selector">{self._theme_options}</select>
+    </div>
     <div id="editor-repl-wrapper">
         <div id="editor-wrapper">
             <textarea id="editor-text-area">{self.editor_text}</textarea>
@@ -7,6 +11,5 @@
             <textarea id="repl-text-area"></textarea>
         </div>
     </div>
-    <select id="theme-selector">{self._theme_options}</select>
     <div id="params-json" style="visibility: hidden;">{self._params_json}</div>
 </div>

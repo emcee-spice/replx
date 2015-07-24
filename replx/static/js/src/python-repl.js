@@ -85,11 +85,12 @@ function createPythonREPL(themeName) {
 		try {
             //Evaluate
             if (!lines || /^\s*$/.test(lines)) {
-                return;
+                return true;
             }
             else {
                 Sk.importMainWithBody("repl", false, lines.join('\n'));            
             }
+            return true;
         } catch (err) {
             repl.print(err);
 
@@ -103,6 +104,7 @@ function createPythonREPL(themeName) {
             lines.forEach(function (str) {
                 repl.print(++line + (index === line ? ">" : " ") + ": " + str);
             });
+            return false;
         }
     };
 

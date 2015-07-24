@@ -43,7 +43,8 @@ function ReplXBlock(runtime, element) {
         editor = CodeMirror.fromTextArea(editorTextArea, {
             lineNumbers: true,
             mode: "python",
-            theme: params["themeName"]
+            theme: params["themeName"],
+            indentUnit: 4
         });
         window._e = editor; // TODO: remove this
 
@@ -86,6 +87,18 @@ function ReplXBlock(runtime, element) {
                     repl.setTheme(themeName);
                 }
             );
-        })
+        });
+
+        // Running code from editor
+        $("#run").click(function () {
+            repl.print('Loading your code...');
+            // This is wrapped in 1ms setTimeout so that the Loading message
+            // is printed before running the code.
+            setTimeout(function () {
+                if (repl.eval(editor.getValue())) {
+                    repl.print('Done.');
+                }
+            }, 1);
+        });
     });
 }
