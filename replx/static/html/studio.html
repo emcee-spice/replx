@@ -2,24 +2,24 @@
   <ul class="list-input settings-list">
     <li class="field comp-setting-entry is-set">
       <div class="wrapper-comp-setting">
-        <label class="label setting-label" for="href">Video URL</label>
-        <input class="input setting-input" name="href" id="href" value="test" type="text" />
+        <label class="label setting-label" for="instructions">Instructions</label>
+        <input class="input setting-input" name="instructions" id="instructions" value="{self.instructions}" type="text" />
       </div>
-      <span class="tip setting-help">Example: https://vimeo.com/46100581</span>
+      <span class="tip setting-help">Tell the student what to do with the code editor</span>
     </li>
     <li class="field comp-setting-entry is-set">
       <div class="wrapper-comp-setting">
-        <label class="label setting-label" for="maxwidth">Max Width</label>
-        <input class="input setting-input" name="maxwidth" id="maxwidth" value="test" type="text" />
+        <label class="label setting-label" for="initial_code">Max Width</label>
+        <textarea class="input setting-input" name="initial_code" id="initial_code">{self.initial_code}</textarea>
       </div>
-      <span class="tip setting-help">Maximum width of the video player.</span>
+      <span class="tip setting-help">Initial code when the block is first loaded</span>
     </li>
     <li class="field comp-setting-entry is-set">
       <div class="wrapper-comp-setting">
-        <label class="label setting-label" for="maxheight">Max Height</label>
-        <input class="input setting-input" name="maxheight" id="maxheight" value="test" type="text" />
+        <label class="label setting-label" for="prerun_code">Max Height</label>
+        <textarea class="input setting-input" name="prerun_code" id="prerun_code">{self.prerun_code}</textarea>
       </div>
-      <span class="tip setting-help">Maximum height of the video player.</span>
+      <span class="tip setting-help">Code to run before evaluating student code</span>
     </li>
   </ul>
   <div class="xblock-actions">

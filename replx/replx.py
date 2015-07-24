@@ -13,16 +13,6 @@ class ReplXBlock(XBlock):
     TO-DO: document what your XBlock does.
     """
 
-    EDITOR_DEFAULT = """
-# You can edit your Python here.
-
-def say_hello(name):
-    print "Hello, " + name + "!"
-
-say_hello("<your name here>")
-
-"""
-
     AVAILABLE_THEMES = {
         'default',
         "3024-day",
@@ -67,15 +57,29 @@ say_hello("<your name here>")
     }
 
     editor_text = String(
-        default=EDITOR_DEFAULT,
+        default=None,
         scope=Scope.user_state,
         help="Text within the code editor."
     )
-    test_setting = String(
-        default="foobar",
+    
+    prerun_code = String(
+        default="",
         scope=Scope.settings,
-        help="A test setting"
+        help="Code to run before evaluating student code"
     )
+
+    instructions = String(
+        default="Enter your code below",
+        scope=Scope.settings,
+        help="Tell the student what to do with the code editor"
+    )
+
+    initial_code = String(
+        default="",
+        scope=Scope.settings,
+        help="Initial code when the block is first loaded"
+    )
+
     _theme_name = String(
         default='default',
         scope=Scope.preferences,
@@ -106,6 +110,9 @@ say_hello("<your name here>")
         }
         self._params_json = json.dumps(self._params)
 
+        if not self.editor_text:
+            self.editor_text = self.initial_code
+
         # Dynamic assets
         self._theme_options = self._make_theme_options()
         html = self.resource_string("static/html/replx.html")
@@ -129,7 +136,7 @@ say_hello("<your name here>")
 
     def studio_view(self, context=None):
         html_str = self.resource_string("static/html/studio.html")
-        frag = Fragment(html_str)
+        frag = Fragment(html_str.format(self=self))
 
         return frag
 
