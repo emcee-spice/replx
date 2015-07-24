@@ -111,7 +111,7 @@ function ReplXBlock(runtime, element) {
                         repl.print('# Failed to load code.');
                     }
                 );
-            }, function () { repl.print('# Failed to run instructor provided code.'); }
+            }, function () { repl.print('# Failed to run instructor provided code.'); });
         });
         $("#submit-button").click(function () {
             alert('Not yet implemented.');
