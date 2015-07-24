@@ -100,18 +100,27 @@ function ReplXBlock(runtime, element) {
         // Control buttons
         $("#run-button").click(function () {
             repl.print('# Loading your code...');
-            repl.eval(params["prerun_code"], function () {
+            preruncode = params["prerun_code"];
+            postruncode = params["postrun_code"];
+            var runStudentCode = function () {
                 repl.eval(
                     editor.getValue(),
                     function () {
                         repl.print('# Code loaded successfully.');
-                        repl.eval(params["postrun_code"]);
+                        if (postruncode) {
+                            repl.eval(postruncode);
+                        }
                     },
                     function () {
                         repl.print('# Failed to load code.');
                     }
                 );
-            }, function () { repl.print('# Failed to run instructor provided code.'); });
+            }
+            if (preruncode) {
+                repl.eval(preruncode, runStudentCode, function () { repl.print('# Failed to run instructor provided code.'); });
+            } else {
+                runStudentCode();
+            }
         });
         $("#submit-button").click(function () {
             alert('Not yet implemented.');
