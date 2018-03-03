@@ -1,3 +1,4 @@
+Written for an edX hackathon. A proof-of-concept XBlock for editing and running Python code.
 
 Todo:
 
